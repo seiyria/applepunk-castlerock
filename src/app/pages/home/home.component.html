@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+
+      <div class="row hero-container">
+        <div class="col-12">
+          <div class="card bg-dark">
+            <img src="assets/bg/hero.png" alt="Castle Carnage" class="card-img-top">
+            <h1 class="title text white-outline">Castle Carnage</h1>
+            <p class="hello-jamspoon text white-outline">Sei Makes Corrugated Games</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row external-links-container">
+        <div class="col-12">
+          <div class="card bg-dark">
+            <div class="card-body">
+              <div class="row">
+                @for(ext of links; track $index) {
+                <div class="col-2" [style.--social-color]="ext.color">
+                  <div class="d-grid gap-2">
+                    <a class="btn btn-block btn-link" (mouseenter)="ext.currentColor = ext.color"
+                      (mouseleave)="ext.currentColor = '#ccc'" [href]="ext.link" target="_blank">
+                      <cc-icon category="external" [name]="ext.icon" [color]="ext.currentColor || '#ccc'"></cc-icon>
+                    </a>
+                  </div>
+                </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row news-container">
+        <div class="col-12">
+          <div class="card bg-dark text-light">
+            <div class="card-body">
+              <h5 class="card-title">Castle Carnage News</h5>
+              <div class="card-text">
+                When there's a blog, it'll be linked here.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 main-menu-container">
+      <div class="main-menu">
+        <div class="row action-row mb-3">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-primary" routerLink="/play">Play</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row action-row mb-3">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-primary" disabled>Options</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row action-row mb-3">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-primary" disabled>Quit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-dark text-light version-info rounded-0">
+    Version {{ metaService.versionString }}
+
+    @if(metaService.hasVersionMismatch) {
+    <span class="badge bg-info ms-3">Update Available ({{ metaService.latestLiveVersion }})</span>
+    }
+
+    @if(metaService.hasChangelogs) {
+    <button class="btn btn-link btn-inline btn-untextured ms-3"
+      (click)="openChangelogs(changelogModal)">Changelog</button>
+    }
+  </div>
+</div>
+
+<ng-template #changelogModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Changelog</h4>
+    <button type="button" class="btn-close btn-dark" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div class="card bg-dark text-white">
+      <div class="card-body limit-size">
+        <div class="changelog-html" [innerHTML]="metaService.changelogAllText"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>
