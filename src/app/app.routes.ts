@@ -5,19 +5,19 @@ import { PlayComponent } from './pages/play/play.component';
 export const routes: Routes = [
   {
     component: HomeComponent,
-    path: '/',
+    path: '',
   },
   {
     component: PlayComponent,
-    path: '/play',
+    path: 'play',
   },
   {
     path: '',
-    redirectTo: '/',
+    redirectTo: '',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: '/',
+    redirectTo: '',
   },
 ];
